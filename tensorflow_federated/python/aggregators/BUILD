@@ -119,6 +119,44 @@ py_test(
 )
 
 py_library(
+    name = "deterministic_discretization",
+    srcs = ["deterministic_discretization.py"],
+    deps = [
+        ":factory",
+        "//tensorflow_federated/python/common_libs:py_typecheck",
+        "//tensorflow_federated/python/core/api:computations",
+        "//tensorflow_federated/python/core/impl/federated_context:intrinsics",
+        "//tensorflow_federated/python/core/impl/types:computation_types",
+        "//tensorflow_federated/python/core/impl/types:placements",
+        "//tensorflow_federated/python/core/impl/types:type_analysis",
+        "//tensorflow_federated/python/core/impl/types:type_conversions",
+        "//tensorflow_federated/python/core/templates:aggregation_process",
+        "//tensorflow_federated/python/core/templates:measured_process",
+        "//third_party/py/tensorflow:tensorflow_no_contrib",
+    ],
+)
+
+py_test(
+    name = "deterministic_discretization_test",
+    srcs = ["deterministic_discretization_test.py"],
+    deps = [
+        ":deterministic_discretization",
+        ":mean",
+        ":measurements",
+        ":sum_factory",
+        "//tensorflow_federated/python/core/backends/native:execution_contexts",
+        "//tensorflow_federated/python/core/impl/federated_context:intrinsics",
+        "//tensorflow_federated/python/core/impl/types:computation_types",
+        "//tensorflow_federated/python/core/impl/types:type_conversions",
+        "//tensorflow_federated/python/core/impl/types:type_test_utils",
+        "//tensorflow_federated/python/core/templates:aggregation_process",
+        "//tensorflow_federated/python/core/templates:measured_process",
+        "//third_party/py/tensorflow:tensorflow_no_contrib",
+        "@absl_py//absl/testing:parameterized",
+    ],
+)
+
+py_library(
     name = "differential_privacy",
     srcs = ["differential_privacy.py"],
     srcs_version = "PY3",
@@ -683,6 +721,44 @@ py_test(
         "//tensorflow_federated/python/core/test:static_assert",
         "@absl_py//absl/testing:parameterized",
         "@org_tensorflow//tensorflow:tensorflow_py",
+    ],
+)
+
+py_library(
+    name = "stochastic_discretization",
+    srcs = ["stochastic_discretization.py"],
+    deps = [
+        ":factory",
+        "//tensorflow_federated/python/common_libs:py_typecheck",
+        "//tensorflow_federated/python/core/api:computations",
+        "//tensorflow_federated/python/core/impl/federated_context:intrinsics",
+        "//tensorflow_federated/python/core/impl/types:computation_types",
+        "//tensorflow_federated/python/core/impl/types:placements",
+        "//tensorflow_federated/python/core/impl/types:type_analysis",
+        "//tensorflow_federated/python/core/impl/types:type_conversions",
+        "//tensorflow_federated/python/core/templates:aggregation_process",
+        "//tensorflow_federated/python/core/templates:measured_process",
+        "//third_party/py/tensorflow:tensorflow_no_contrib",
+    ],
+)
+
+py_test(
+    name = "stochastic_discretization_test",
+    srcs = ["stochastic_discretization_test.py"],
+    deps = [
+        ":mean",
+        ":measurements",
+        ":stochastic_discretization",
+        ":sum_factory",
+        "//tensorflow_federated/python/core/backends/native:execution_contexts",
+        "//tensorflow_federated/python/core/impl/federated_context:intrinsics",
+        "//tensorflow_federated/python/core/impl/types:computation_types",
+        "//tensorflow_federated/python/core/impl/types:type_conversions",
+        "//tensorflow_federated/python/core/impl/types:type_test_utils",
+        "//tensorflow_federated/python/core/templates:aggregation_process",
+        "//tensorflow_federated/python/core/templates:measured_process",
+        "//third_party/py/tensorflow:tensorflow_no_contrib",
+        "@absl_py//absl/testing:parameterized",
     ],
 )
 
